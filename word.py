@@ -3,7 +3,6 @@ import requests
 import json
 
 apiKey = os.getenv('wordKey')
-print(apiKey)
 
 
 class Word:  
@@ -19,7 +18,6 @@ class Word:
 
 
 		url = "https://wordsapiv1.p.rapidapi.com/words/" + self.headword
-		print(url)
 
 		headers = {
 			'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
@@ -33,17 +31,21 @@ class Word:
 
 		self.apiInfo.append(responseJSON)
 
-
-
 	def get_definitions_and_examples(self):
 
 		for entry in self.apiInfo[0]['results']:
+			print("Definition: ")
 			print(entry["definition"])
+			print("")
 			
 			try:
-				print(entry["examples"])
+				print("Example: ")
+				for sentence in entry["examples"]:
+					print(sentence)
+				print("")
 			except:
 				print("no examples")
+				print("")
 
 	def get_syllables(self):
 
