@@ -2,16 +2,18 @@ import os
 import requests
 import json
 
+# Get the API key
 apiKey = os.getenv('wordKey')
 
-
-class Word:  
+class Word:
 	   
 	def __init__(self, headword):  
 		self.headword = headword  
 	
 		# Craete an empty list attribute that will store the api information
 		self.apiInfo = []
+
+		self.get_word_info()
 
 
 	def get_word_info(self):
@@ -33,6 +35,8 @@ class Word:
 
 	def get_definitions_and_examples(self):
 
+		print(self.apiInfo)
+
 		for entry in self.apiInfo[0]['results']:
 			print("Definition: ")
 			print(entry["definition"])
@@ -51,23 +55,3 @@ class Word:
 
 		#print(self.apiInfo[0]['syllables']['count'])
 		return self.apiInfo[0]['syllables']['count']
-
-
-print("Welcome to the word game")
-print("Please enter your favorite word")
-
-userWord = input()
-gameWord = Word(userWord)
-gameWord.get_word_info()
-gameWord.get_definitions_and_examples()
-
-syllables = gameWord.get_syllables()
-
-print("How many syllables does the word have?")
-
-userSyllalesGuess = input()
-
-if int(userSyllalesGuess) == int(syllables):
-	print("Yes you win")
-else:
-	print("No the word has {}".format(syllables))
